@@ -1,0 +1,31 @@
+<nav class="px-8 py-8 bg-primary flex flex-col justify-stretch sticky">
+  <div class="mb-10">
+    <img alt="profile" src="/assets/avatar.png" class="border rounded-full w-2/3 h-auto mx-auto mb-6"/>
+    <div class="bg-secondary rounded-3xl py-2 text-white text-center text-xl mb-2">
+      {{firstname}}
+    </div>
+    <div class="bg-neutral rounded-3xl py-1 text-primary text-center text-md w-2/5 mx-auto">
+      {{role}}
+    </div>
+  </div>
+
+  <div>
+    <ul class="text-white text-xl">
+      @for (item of links; track $index) {
+        <li class="mb-2 rounded-3xl py-1 px-5 bg-{{item.active ? 'secondary' : 'transparent'}}">
+          <a
+            class="flex items-center"
+            routerLink="{{item.path}}"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+          >
+            <span class="material-symbols-outlined">
+              {{item.icon}}
+            </span>
+            <span class="ml-2">{{item.title}}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</nav>
