@@ -1,21 +1,27 @@
 import { Routes } from '@angular/router';
 import { TestComponent } from '../components/test/test.component';
 import { LoginComponent } from '../components/login/login.component';
+import { SidenavComponent } from '../components/sidenav/sidenav.component';
 
 export const routes: Routes = [
   {
-    path: "dashboard",
-    title: "Dashboard :: SnapBug",
-    component: TestComponent
-  },
-  {
-    path: "issue",
-    title: "Issue :: SnapBug",
-    component: TestComponent
+    path:"",
+    redirectTo:"login",
+    pathMatch:"full"
   },
   {
     path: "login",
-    title: "login :: SnapBug",
     component: LoginComponent
-  }
+  },
+  {
+    path: "",
+    component: SidenavComponent,
+    children:[
+      {
+        path:"test",
+        component:TestComponent
+      }
+    ]
+  },
+
 ];

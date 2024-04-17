@@ -3,8 +3,8 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule , HttpHandler, provideHttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule , HttpHandler, provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(),]
+  providers: [provideRouter(routes), provideHttpClient(withFetch()),]
 };
