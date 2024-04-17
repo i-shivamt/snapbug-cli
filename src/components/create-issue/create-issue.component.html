@@ -1,0 +1,31 @@
+<div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <h2 class="text-lg font-semibold mb-4">Create Something</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Text Inputs -->
+        <div class="mb-4" *ngFor="let field of ['input1', 'input2', 'input3']; let i = index">
+            <label [for]="field" class="block text-sm font-medium text-gray-700 mb-1">Input Field {{i + 1}}</label>
+            <input type="text" [id]="field" formControlName="{{field}}" class="form-input" required>
+            <div *ngIf="form.get(field)?.errors?.['required'] && form.get(field)?.touched" class="text-red-500 text-xs">
+                Field is required
+            </div>
+        </div>
+        <!-- Dropdown Selections -->
+        <div class="mb-4" *ngFor="let dropdown of ['dropdown1', 'dropdown2', 'dropdown3', 'dropdown4', 'dropdown5', 'dropdown6']; let i = index">
+            <label [for]="dropdown" class="block text-sm font-medium text-gray-700 mb-1">Dropdown {{i + 1}}</label>
+            <select [id]="dropdown" formControlName="{{dropdown}}" class="form-select">
+                <option value="">Select an Option</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+            <div *ngIf="form.get(dropdown)?.errors?.['required'] && form.get(dropdown)?.touched" class="text-red-500 text-xs">
+                Selection is required
+            </div>
+        </div>
+        <!-- Buttons -->
+        <div class="flex justify-between">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" [disabled]="form.invalid">Create</button>
+            <button type="button" (click)="onReset()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400">Reset</button>
+        </div>
+    </form>
+</div>

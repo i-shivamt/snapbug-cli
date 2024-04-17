@@ -33,7 +33,7 @@ export class LoginComponent {
         console.log('login sucessfull');
         this.loginResponse = response;
         localStorage.setItem('token', this.loginResponse.token);
-        this.router.navigateByUrl("/test")
+        this.router.navigateByUrl("/create")
       });
   }
 }

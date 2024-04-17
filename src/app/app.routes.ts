@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { TestComponent } from '../components/test/test.component';
 import { LoginComponent } from '../components/login/login.component';
 import { SidenavComponent } from '../components/sidenav/sidenav.component';
+import { CreateIssueComponent } from '../components/create-issue/create-issue.component';
 
 export const routes: Routes = [
   {
@@ -18,8 +19,8 @@ export const routes: Routes = [
     component: SidenavComponent,
     children:[
       {
-        path:"test",
-        component:TestComponent
+        path:"create",
+        component:CreateIssueComponent
       }
     ]
   },
