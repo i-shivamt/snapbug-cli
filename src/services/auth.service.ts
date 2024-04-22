@@ -3,7 +3,7 @@ import { LoginResponse } from '../interface/login-response';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   SPIRNG_SERVER_URI = 'http://localhost:3001/api/v1';
   constructor(private http: HttpClient) {}

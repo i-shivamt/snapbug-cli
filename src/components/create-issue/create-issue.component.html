@@ -1,24 +1,92 @@
-<div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
-    <h2 class="text-lg font-semibold mb-4">Create Something</h2>
+<div class="w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <h2 class="text-lg font-semibold mb-4">Create Issue</h2>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <!-- Text Inputs -->
-        <div class="mb-4" *ngFor="let field of ['input1', 'input2', 'input3']; let i = index">
-            <label [for]="field" class="block text-sm font-medium text-gray-700 mb-1">Input Field {{i + 1}}</label>
-            <input type="text" [id]="field" formControlName="{{field}}" class="form-input" required>
-            <div *ngIf="form.get(field)?.errors?.['required'] && form.get(field)?.touched" class="text-red-500 text-xs">
+        <div class="mb-4" >
+            <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <input type="text"  formControlName="title" class="form-input" required />
+            <div  *ngIf="form.get('title')?.errors?.['required'] && form.get('title')?.touched" class="text-red-500 text-xs">
                 Field is required
             </div>
         </div>
+        <div class="mb-4" >
+            <label  class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <input type="text" formControlName="description" class="form-input" required />
+            <div  *ngIf="form.get('description')?.errors?.['required'] && form.get('description')?.touched" class="text-red-500 text-xs">
+                Field is required
+            </div>
+        </div>
+        <div class="mb-4" >
+            <label  class="block text-sm font-medium text-gray-700 mb-1">Steps and Data</label>
+            <input type="text" formControlName="expectation" class="form-input" required />
+            <div  *ngIf="form.get('expectation')?.errors?.['required'] && form.get('expectation')?.touched" class="text-red-500 text-xs">
+                Field is required
+            </div>
+        </div>
+        <!-- <div class="mb-4" >
+            <label  class="block text-sm font-medium text-gray-700 mb-1">Expected Output</label>
+            <input type="text" formControlName="expectedOutput" class="form-input" required />
+            <div  *ngIf="form.get('expectedOutput')?.errors?.['required'] && form.get('expectedOutput')?.touched" class="text-red-500 text-xs">
+                Field is required
+            </div>
+        </div>
+        <div class="mb-4" >
+            <label  class="block text-sm font-medium text-gray-700 mb-1">Actual Output</label>
+            <input type="text" formControlName="actualOutput" class="form-input" required />
+            <div  *ngIf="form.get('actualOutput')?.errors?.['required'] && form.get('actualOutput')?.touched" class="text-red-500 text-xs">
+                Field is required
+            </div>
+        </div> -->
+
         <!-- Dropdown Selections -->
-        <div class="mb-4" *ngFor="let dropdown of ['dropdown1', 'dropdown2', 'dropdown3', 'dropdown4', 'dropdown5', 'dropdown6']; let i = index">
-            <label [for]="dropdown" class="block text-sm font-medium text-gray-700 mb-1">Dropdown {{i + 1}}</label>
-            <select [id]="dropdown" formControlName="{{dropdown}}" class="form-select">
+
+        <div class="mb-4">
+            <label  class="block text-sm font-medium text-gray-700 mb-1">Select Module</label>
+            <select (change)="getSubModule($event)" class="form-select"  formControlName="module">
                 <option value="">Select an Option</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-            </select>
-            <div *ngIf="form.get(dropdown)?.errors?.['required'] && form.get(dropdown)?.touched" class="text-red-500 text-xs">
+                <option *ngFor="let option of modulesList" [value]="option.id">{{ option.name }}</option>
+              </select>
+              <div *ngIf="form.get('module')?.errors?.['required'] && form.get('module')?.touched" class="text-red-500 text-xs">
+                Selection is required
+            </div>
+        </div>
+        <div class="mb-4">
+            <label  class="block text-sm font-medium text-gray-700 mb-1">Select Sub-Module</label>
+            <select (change)="getScreen($event)" class="form-select" formControlName="subModule">
+                <option value="">Select an Option</option>
+                <option *ngFor="let option of subModuleList" [value]="option.id">{{ option.name }}</option>
+              </select>
+              <div *ngIf="form.get('subModule')?.errors?.['required'] && form.get('subModule')?.touched" class="text-red-500 text-xs">
+                Selection is required
+            </div>
+        </div>
+        <div class="mb-4">
+            <label  class="block text-sm font-medium text-gray-700 mb-1">Select Screen</label>
+            <select  class="form-select" formControlName="screen">
+                <option value="">Select an Option</option>
+                <option *ngFor="let option of screenList" [value]="option.id">{{ option.name }}</option>
+              </select>
+              <div *ngIf="form.get('screen')?.errors?.['required'] && form.get('screen')?.touched" class="text-red-500 text-xs">
+                Selection is required
+            </div>
+        </div>
+        <div class="mb-4">
+            <label  class="block text-sm font-medium text-gray-700 mb-1">Select Severity</label>
+            <select  class="form-select" formControlName="severity">
+                <option value="">Select an Option</option>
+                <option *ngFor="let option of severityList" [value]="option.id">{{ option.name }}</option>
+              </select>
+              <div *ngIf="form.get('severity')?.errors?.['required'] && form.get('severity')?.touched" class="text-red-500 text-xs">
+                Selection is required
+            </div>
+        </div>
+        <div class="mb-4">
+            <label  class="block text-sm font-medium text-gray-700 mb-1">Select Type </label>
+            <select  class="form-select" formControlName="type">
+                <option value="">Select an Option</option>
+                <option *ngFor="let option of typeList" [value]="option.id">{{ option.name }}</option>
+              </select>
+              <div *ngIf="form.get('type')?.errors?.['required'] && form.get('type')?.touched" class="text-red-500 text-xs">
                 Selection is required
             </div>
         </div>
