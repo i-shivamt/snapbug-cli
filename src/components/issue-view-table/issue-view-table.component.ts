@@ -1,17 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { IssueService } from '../../services/issue.service';
+import { GetIssues } from '../../interface/get-issues';
+import { PageContent } from '../../interface/page-content';
 
 @Component({
   selector: 'app-issue-view-table',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './issue-view-table.component.html',
-  styleUrl: './issue-view-table.component.css'
+  styleUrl: './issue-view-table.component.css',
 })
 export class IssueViewTableComponent {
-  items = [
-    { col1: 'Data 1.1', col2: 'Data 1.2', col3: 'Data 1.3', col4: 'Data 1.4' },
-    { col1: 'Data 2.1', col2: 'Data 2.2', col3: 'Data 2.3', col4: 'Data 2.4' },
-    
-  ];
+  issues!: PageContent<GetIssues>;
+  constructor(private issueService: IssueService) {}
+
+  ngOnInit(): void {
+    this.issueService.getIssues().subscribe((res) => {
+      this.issues = res;
+      console.log(this.issues);
+    });
+  }
 }

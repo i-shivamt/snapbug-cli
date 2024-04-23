@@ -1,33 +1,40 @@
 <div class="overflow-x-auto">
-    <table class="min-w-full bg-white">
-      <thead>
-        <tr>
-          <th class="text-left font-bold uppercase px-6 py-3">Column 1</th>
-          <th class="text-left font-bold uppercase px-6 py-3">Column 2</th>
-          <th class="text-left font-bold uppercase px-6 py-3">Column 3</th>
-          <th class="text-left font-bold uppercase px-6 py-3">Column 4</th>
-          <th class="text-left font-bold uppercase px-6 py-3">Actions</th>
-          <th class="text-left font-bold uppercase px-6 py-3">More Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of items">
-          <td class="px-6 py-4">{{ item.col1 }}</td>
-          <td class="px-6 py-4">{{ item.col2 }}</td>
-          <td class="px-6 py-4">{{ item.col3 }}</td>
-          <td class="px-6 py-4">{{ item.col4 }}</td>
-          <td class="px-6 py-4">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Action 1
-            </button>
-          </td>
-          <td class="px-6 py-4">
-            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-              Action 2
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+  <table class="min-w-full bg-white">
+    <thead>
+      <tr>
+        <th class="text-left font-bold uppercase px-6 py-3">Title</th>
+        <th class="text-left font-bold uppercase px-6 py-3">Description</th>
+        <th class="text-left font-bold uppercase px-6 py-3">Steps&Data</th>
+        <th class="text-left font-bold uppercase px-6 py-3">Status</th>
+        <th class="text-left font-bold uppercase px-6 py-3">Severity</th>
+        <th class="text-left font-bold uppercase px-6 py-3">Type</th>
+        <th class="text-left font-bold uppercase px-6 py-3">Assign</th>
+        <th class="text-left font-bold uppercase px-6 py-3">Delete Issue</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let issue of issues.content">
+        <td class="px-6 py-4">{{ issue.title }}</td>
+        <td class="px-6 py-4">{{ issue.description }}</td>
+        <td class="px-6 py-4">{{ issue.expectation }}</td>
+        <td class="px-6 py-4">{{ issue.status }}</td>
+        <td class="px-6 py-4">{{ issue.severity }}</td>
+        <td class="px-6 py-4">{{ issue.type }}</td>
+        <td class="px-6 py-4">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Action 1
+          </button>
+        </td>
+        <td class="px-6 py-4">
+          <button
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Action 2
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

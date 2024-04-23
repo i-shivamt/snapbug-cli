@@ -8,6 +8,8 @@ import { Severity } from '../interface/severity';
 import { Type } from '../interface/type';
 import { CreateIssue } from '../interface/create-issue';
 import { IssueCreationResponse } from '../interface/issue-creation-response';
+import { GetIssues } from '../interface/get-issues';
+import { PageContent } from '../interface/page-content';
 
 @Injectable({ providedIn: 'root' })
 export class IssueService {
@@ -38,7 +40,16 @@ export class IssueService {
     return this.http.get<[Type]>(`${this.SPIRNG_SERVER_URI}/issue-type/`);
   }
 
-  createIssue(createIssue:CreateIssue): Observable<IssueCreationResponse> {
-    return this.http.post<IssueCreationResponse>(`${this.SPIRNG_SERVER_URI}/issue/`,createIssue );
+  createIssue(createIssue: CreateIssue): Observable<IssueCreationResponse> {
+    return this.http.post<IssueCreationResponse>(
+      `${this.SPIRNG_SERVER_URI}/issue/`,
+      createIssue
+    );
+  }
+
+  getIssues() {
+    return this.http.get<PageContent<GetIssues>>(
+      `${this.SPIRNG_SERVER_URI}/issue/`
+    );
   }
 }

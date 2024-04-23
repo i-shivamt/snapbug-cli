@@ -30,11 +30,9 @@ export class CreateIssueComponent {
   screenList: Screens[] = [];
   severityList: Severity[] = [];
   typeList: Type[] = [];
-  createIssue!:CreateIssue;
+  createIssue!: CreateIssue;
 
-  constructor(private issueService: IssueService , private fb: FormBuilder) {
- 
-  }
+  constructor(private issueService: IssueService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -46,7 +44,7 @@ export class CreateIssueComponent {
       // actualOutput: new FormControl('', Validators.required),
       // Dropdowns
       module: new FormControl('', Validators.required),
-      subModule: new FormControl('', Validators.required),
+      submodule: new FormControl('', Validators.required),
       screen: new FormControl('', Validators.required),
       severity: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
@@ -77,10 +75,10 @@ export class CreateIssueComponent {
   }
 
   onSubmit() {
-    this.createIssue=this.form.value
-    this.issueService.createIssue(this.createIssue).subscribe((res)=>{
+    this.createIssue = this.form.value;
+    this.issueService.createIssue(this.createIssue).subscribe((res) => {
       console.log(res);
-    })
+    });
   }
 
   onReset() {
