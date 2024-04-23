@@ -3,6 +3,7 @@ import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LoginResponse } from '../../interface/login-response';
 import { Router } from '@angular/router';
+import { DataCommunicationService } from '../../services/data-communication.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,10 @@ export class LoginComponent {
   passwordControl: FormControl;
   errorMessage: string;
   loginResponse!: LoginResponse;
+  currentUser!:string;
+  currentRole!:string;
 
-  constructor(private authService: AuthService , private router: Router) {
+  constructor(private authService: AuthService , private router: Router, private dataCom:DataCommunicationService) {
     this.errorMessage = '';
     this.usernameControl = new FormControl('', [
       Validators.required,
@@ -32,6 +35,10 @@ export class LoginComponent {
       .subscribe((response) => {
         console.log('login sucessfull');
         this.loginResponse = response;
+        this.currentUser=this.loginResponse.username;
+        this.currentRole=this.loginResponse.role;
+        this.dataCom.currentUserSubject.next(this.currentUser);
+        this.dataCom.currentRoleSubject.next(this.currentRole);
         localStorage.setItem('token', this.loginResponse.token);
         this.router.navigateByUrl("/create")
       });

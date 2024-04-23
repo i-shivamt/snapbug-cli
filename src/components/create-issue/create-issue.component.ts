@@ -13,8 +13,8 @@ import { Submodule } from '../../interface/submodule';
 import { Screens } from '../../interface/screens';
 import { Severity } from '../../interface/severity';
 import { Type } from '../../interface/type';
-import { Title } from '@angular/platform-browser';
 import { CreateIssue } from '../../interface/create-issue';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-issue',
@@ -31,6 +31,11 @@ export class CreateIssueComponent {
   severityList: Severity[] = [];
   typeList: Type[] = [];
   createIssue!: CreateIssue;
+  private getModelSubscription!: Subscription;
+  private getSubModelSubscription!: Subscription;
+  private getScreenSubscription!: Subscription;
+  private getSeveritySubscription!: Subscription;
+  private getTypeSubscription!: Subscription;
 
   constructor(private issueService: IssueService, private fb: FormBuilder) {}
 
@@ -49,27 +54,27 @@ export class CreateIssueComponent {
       severity: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
     });
-    this.issueService.getModule().subscribe((res) => {
+    this.getModelSubscription=this.issueService.getModule().subscribe((res) => {
       this.modulesList = res;
     });
 
-    this.issueService.getSeverity().subscribe((res) => {
+    this.getSeveritySubscription=this.issueService.getSeverity().subscribe((res) => {
       this.severityList = res;
     });
-    this.issueService.getType().subscribe((res) => {
+    this.getTypeSubscription=this.issueService.getType().subscribe((res) => {
       this.typeList = res;
     });
   }
 
   getSubModule(moduleId: any): void {
-    this.issueService.getSubModule(moduleId.target.value).subscribe((res) => {
+    this.getSubModelSubscription=this.issueService.getSubModule(moduleId.target.value).subscribe((res) => {
       this.subModuleList = res;
       console.log(this.subModuleList);
     });
   }
 
   getScreen(event: any) {
-    this.issueService.getScreen(event.target.value).subscribe((res) => {
+    this.getScreenSubscription=this.issueService.getScreen(event.target.value).subscribe((res) => {
       this.screenList = res;
     });
   }
@@ -77,11 +82,19 @@ export class CreateIssueComponent {
   onSubmit() {
     this.createIssue = this.form.value;
     this.issueService.createIssue(this.createIssue).subscribe((res) => {
-      console.log(res);
+      this.form.reset();
     });
   }
 
   onReset() {
     this.form.reset();
+  }
+
+  ngOnDestroy():void{
+  this.getModelSubscription.unsubscribe();
+  this.getScreenSubscription.unsubscribe();
+  this.getSeveritySubscription.unsubscribe();
+  this.getSubModelSubscription.unsubscribe();
+  this.getTypeSubscription.unsubscribe();
   }
 }

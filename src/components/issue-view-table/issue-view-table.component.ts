@@ -12,7 +12,11 @@ import { PageContent } from '../../interface/page-content';
   styleUrl: './issue-view-table.component.css',
 })
 export class IssueViewTableComponent {
-  issues!: PageContent<GetIssues>;
+  issues: PageContent<GetIssues>={
+    content: [],
+    totalElements: 0,
+    totalPages: 0
+  }
   constructor(private issueService: IssueService) {}
 
   ngOnInit(): void {

@@ -1,52 +1,74 @@
 <div class="w-md mx-auto bg-white p-6 rounded-md shadow-md">
-  <h2 class="text-lg font-semibold mb-4">Create Issue</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      Create Issue
+    </h2>
+    <p class="mt-2 text-lg leading-8 text-gray-600">
+      A Complete details of Issue is Required.
+    </p>
+  </div>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="mx-auto mt-16 max-w-xl sm:mt-20"
+  >
     <!-- Text Inputs -->
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-      <input type="text" formControlName="title" class="form-input" required />
-      <div
-        *ngIf="form.get('title')?.errors?.['required'] && form.get('title')?.touched"
-        class="text-red-500 text-xs"
-      >
-        Field is required
+    <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+      <div class="mb-4">
+        <label class="block text-sm font-semibold leading-6 text-gray-900"
+          >Title</label
+        >
+        <input
+          type="text"
+          formControlName="title"
+          class="form-input"
+          class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          required
+        />
+        <div
+          *ngIf="form.get('title')?.errors?.['required'] && form.get('title')?.touched"
+          class="text-red-500 text-xs"
+        >
+          Field is required
+        </div>
       </div>
-    </div>
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1"
-        >Description</label
-      >
-      <input
-        type="text"
-        formControlName="description"
-        class="form-input"
-        required
-      />
-      <div
-        *ngIf="form.get('description')?.errors?.['required'] && form.get('description')?.touched"
-        class="text-red-500 text-xs"
-      >
-        Field is required
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Description</label
+        >
+        <input
+          type="text"
+          formControlName="description"
+          class="form-input"
+          class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          required
+        />
+        <div
+          *ngIf="form.get('description')?.errors?.['required'] && form.get('description')?.touched"
+          class="text-red-500 text-xs"
+        >
+          Field is required
+        </div>
       </div>
-    </div>
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1"
-        >Steps and Data</label
-      >
-      <input
-        type="text"
-        formControlName="expectation"
-        class="form-input"
-        required
-      />
-      <div
-        *ngIf="form.get('expectation')?.errors?.['required'] && form.get('expectation')?.touched"
-        class="text-red-500 text-xs"
-      >
-        Field is required
+      <div class="mb-2.5">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Steps and Data</label
+        >
+        <input
+          type="text"
+          formControlName="expectation"
+          class="form-input"
+          class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          required
+        />
+        <div
+          *ngIf="form.get('expectation')?.errors?.['required'] && form.get('expectation')?.touched"
+          class="text-red-500 text-xs"
+        >
+          Field is required
+        </div>
       </div>
-    </div>
-    <!-- <div class="mb-4" >
+      <!-- <div class="mb-4" >
             <label  class="block text-sm font-medium text-gray-700 mb-1">Expected Output</label>
             <input type="text" formControlName="expectedOutput" class="form-input" required />
             <div  *ngIf="form.get('expectedOutput')?.errors?.['required'] && form.get('expectedOutput')?.touched" class="text-red-500 text-xs">
@@ -61,117 +83,128 @@
             </div>
         </div> -->
 
-    <!-- Dropdown Selections -->
+      <!-- Dropdown Selections -->
 
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1"
-        >Select Module</label
-      >
-      <select
-        (change)="getSubModule($event)"
-        class="form-select"
-        formControlName="module"
-      >
-        <option value="">Select an Option</option>
-        <option *ngFor="let option of modulesList" [value]="option.id">
-          {{ option.name }}
-        </option>
-      </select>
-      <div
-        *ngIf="form.get('module')?.errors?.['required'] && form.get('module')?.touched"
-        class="text-red-500 text-xs"
-      >
-        Selection is required
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Select Module</label
+        >
+        <select
+          (change)="getSubModule($event)"
+          class="form-select"
+          class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+          formControlName="module"
+        >
+          <option value="">Select an Option</option>
+          <option *ngFor="let option of modulesList" [value]="option.id">
+            {{ option.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="form.get('module')?.errors?.['required'] && form.get('module')?.touched"
+          class="text-red-500 text-xs"
+        >
+          Selection is required
+        </div>
       </div>
-    </div>
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1"
-        >Select Sub-Module</label
-      >
-      <select
-        (change)="getScreen($event)"
-        class="form-select"
-        formControlName="submodule"
-      >
-        <option value="">Select an Option</option>
-        <option *ngFor="let option of subModuleList" [value]="option.id">
-          {{ option.name }}
-        </option>
-      </select>
-      <div
-        *ngIf="form.get('submodule')?.errors?.['required'] && form.get('submodule')?.touched"
-        class="text-red-500 text-xs"
-      >
-        Selection is required
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Select Sub-Module</label
+        >
+        <select
+          (change)="getScreen($event)"
+          class="form-select"
+          class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+          formControlName="submodule"
+        >
+          <option value="">Select an Option</option>
+          <option *ngFor="let option of subModuleList" [value]="option.id">
+            {{ option.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="form.get('submodule')?.errors?.['required'] && form.get('submodule')?.touched"
+          class="text-red-500 text-xs"
+        >
+          Selection is required
+        </div>
       </div>
-    </div>
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1"
-        >Select Screen</label
-      >
-      <select class="form-select" formControlName="screen">
-        <option value="" default>Select an Option</option>
-        <option *ngFor="let option of screenList" [value]="option.id">
-          {{ option.name }}
-        </option>
-      </select>
-      <div
-        *ngIf="form.get('screen')?.errors?.['required'] && form.get('screen')?.touched"
-        class="text-red-500 text-xs"
-      >
-        Selection is required
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Select Screen</label
+        >
+        <select
+          class="form-select"
+          class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+          formControlName="screen"
+        >
+          <option value="" default>Select an Option</option>
+          <option *ngFor="let option of screenList" [value]="option.id">
+            {{ option.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="form.get('screen')?.errors?.['required'] && form.get('screen')?.touched"
+          class="text-red-500 text-xs"
+        >
+          Selection is required
+        </div>
       </div>
-    </div>
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1"
-        >Select Severity</label
-      >
-      <select class="form-select" formControlName="severity">
-        <option value="">Select an Option</option>
-        <option *ngFor="let option of severityList" [value]="option.id">
-          {{ option.name }}
-        </option>
-      </select>
-      <div
-        *ngIf="form.get('severity')?.errors?.['required'] && form.get('severity')?.touched"
-        class="text-red-500 text-xs"
-      >
-        Selection is required
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Select Severity</label
+        >
+        <select class="form-select"
+        class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+        formControlName="severity">
+          <option value="">Select an Option</option>
+          <option *ngFor="let option of severityList" [value]="option.id">
+            {{ option.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="form.get('severity')?.errors?.['required'] && form.get('severity')?.touched"
+          class="text-red-500 text-xs"
+        >
+          Selection is required
+        </div>
       </div>
-    </div>
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1"
-        >Select Type
-      </label>
-      <select class="form-select" formControlName="type">
-        <option value="">Select an Option</option>
-        <option *ngFor="let option of typeList" [value]="option.id">
-          {{ option.name }}
-        </option>
-      </select>
-      <div
-        *ngIf="form.get('type')?.errors?.['required'] && form.get('type')?.touched"
-        class="text-red-500 text-xs"
-      >
-        Selection is required
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Select Type
+        </label>
+        <select class="form-select" 
+        class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+        formControlName="type">
+          <option value="">Select an Option</option>
+          <option *ngFor="let option of typeList" [value]="option.id">
+            {{ option.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="form.get('type')?.errors?.['required'] && form.get('type')?.touched"
+          class="text-red-500 text-xs"
+        >
+          Selection is required
+        </div>
       </div>
-    </div>
-    <!-- Buttons -->
-    <div class="flex justify-between">
-      <button
-        type="submit"
-        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        [disabled]="form.invalid"
-      >
-        Create
-      </button>
-      <button
-        type="button"
-        (click)="onReset()"
-        class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
-      >
-        Reset
-      </button>
+      <!-- Buttons -->
+      <div class="flex justify-between">
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          [disabled]="form.invalid"
+        >
+          Create
+        </button>
+        <button
+          type="button"
+          (click)="onReset()"
+          class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+        >
+          Reset
+        </button>
+      </div>
     </div>
   </form>
 </div>
