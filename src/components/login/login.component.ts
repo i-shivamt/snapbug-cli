@@ -17,10 +17,14 @@ export class LoginComponent {
   passwordControl: FormControl;
   errorMessage: string;
   loginResponse!: LoginResponse;
-  currentUser!:string;
-  currentRole!:string;
+  currentUser!: string;
+  currentRole!: string;
 
-  constructor(private authService: AuthService , private router: Router, private dataCom:DataCommunicationService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private dataCom: DataCommunicationService
+  ) {
     this.errorMessage = '';
     this.usernameControl = new FormControl('', [
       Validators.required,
@@ -35,12 +39,12 @@ export class LoginComponent {
       .subscribe((response) => {
         console.log('login sucessfull');
         this.loginResponse = response;
-        this.currentUser=this.loginResponse.username;
-        this.currentRole=this.loginResponse.role;
+        this.currentUser = this.loginResponse.username;
+        this.currentRole = this.loginResponse.role;
         this.dataCom.currentUserSubject.next(this.currentUser);
         this.dataCom.currentRoleSubject.next(this.currentRole);
         localStorage.setItem('token', this.loginResponse.token);
-        this.router.navigateByUrl("/create")
+        this.router.navigateByUrl('/create');
       });
   }
 }

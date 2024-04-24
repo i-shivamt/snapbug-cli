@@ -30,6 +30,7 @@ export class CreateIssueComponent {
   screenList: Screens[] = [];
   severityList: Severity[] = [];
   typeList: Type[] = [];
+  isFormSubmited = false;
   createIssue!: CreateIssue;
   private getModelSubscription!: Subscription;
   private getSubModelSubscription!: Subscription;
@@ -54,47 +55,63 @@ export class CreateIssueComponent {
       severity: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
     });
-    this.getModelSubscription=this.issueService.getModule().subscribe((res) => {
-      this.modulesList = res;
-    });
+    this.getModelSubscription = this.issueService
+      .getModule()
+      .subscribe((res) => {
+        this.modulesList = res;
+      });
 
-    this.getSeveritySubscription=this.issueService.getSeverity().subscribe((res) => {
-      this.severityList = res;
-    });
-    this.getTypeSubscription=this.issueService.getType().subscribe((res) => {
+    this.getSeveritySubscription = this.issueService
+      .getSeverity()
+      .subscribe((res) => {
+        this.severityList = res;
+      });
+    this.getTypeSubscription = this.issueService.getType().subscribe((res) => {
       this.typeList = res;
     });
   }
 
   getSubModule(moduleId: any): void {
-    this.getSubModelSubscription=this.issueService.getSubModule(moduleId.target.value).subscribe((res) => {
-      this.subModuleList = res;
-      console.log(this.subModuleList);
-    });
+    this.getSubModelSubscription = this.issueService
+      .getSubModule(moduleId.target.value)
+      .subscribe((res) => {
+        this.subModuleList = res;
+        console.log(this.subModuleList);
+      });
   }
 
   getScreen(event: any) {
-    this.getScreenSubscription=this.issueService.getScreen(event.target.value).subscribe((res) => {
-      this.screenList = res;
-    });
+    this.getScreenSubscription = this.issueService
+      .getScreen(event.target.value)
+      .subscribe((res) => {
+        this.screenList = res;
+      });
   }
 
   onSubmit() {
     this.createIssue = this.form.value;
     this.issueService.createIssue(this.createIssue).subscribe((res) => {
+      this.isFormSubmited = true;
       this.form.reset();
     });
+  }
+
+  onBlurOfSubModule() {
+    if (this.form.get('module')?.touched) {
+      this.form.get('submodule')?.reset();
+      this.form.get('screen')?.reset();
+    }
   }
 
   onReset() {
     this.form.reset();
   }
 
-  ngOnDestroy():void{
-  this.getModelSubscription.unsubscribe();
-  this.getScreenSubscription.unsubscribe();
-  this.getSeveritySubscription.unsubscribe();
-  this.getSubModelSubscription.unsubscribe();
-  this.getTypeSubscription.unsubscribe();
+  ngOnDestroy(): void {
+    this.getModelSubscription.unsubscribe();
+    this.getScreenSubscription.unsubscribe();
+    this.getSeveritySubscription.unsubscribe();
+    this.getSubModelSubscription.unsubscribe();
+    this.getTypeSubscription.unsubscribe();
   }
 }
