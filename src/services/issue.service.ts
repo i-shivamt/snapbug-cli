@@ -52,4 +52,8 @@ export class IssueService {
       `${this.SPIRNG_SERVER_URI}/issue/`
     );
   }
+
+  getIssuesForPagination(page:number){
+    return this.http.get<PageContent<GetIssues>>(`${this.SPIRNG_SERVER_URI}/issue/`+ '?page='+page+'&size='+10);
+  }
 }

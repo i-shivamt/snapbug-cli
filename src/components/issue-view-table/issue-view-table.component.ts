@@ -12,6 +12,9 @@ import { PageContent } from '../../interface/page-content';
   styleUrl: './issue-view-table.component.css',
 })
 export class IssueViewTableComponent {
+  totalElements!:number;
+  totalPages:number[]=[];
+  currentPage:number=1;
   issues: PageContent<GetIssues>={
     content: [],
     totalElements: 0,
@@ -20,9 +23,17 @@ export class IssueViewTableComponent {
   constructor(private issueService: IssueService) {}
 
   ngOnInit(): void {
-    this.issueService.getIssues().subscribe((res) => {
+    this.issueService.getIssuesForPagination(1).subscribe((res) => {
       this.issues = res;
-      console.log(this.issues);
+      this.totalPages=Array(this.issues.totalPages).fill(1).map((x,i)=>i+1);
+      console.log(this.totalPages);
+    });
+  }
+
+  getIssueDataPaginatio(page:number){
+    this.issueService.getIssuesForPagination(page).subscribe((res) => {
+      this.issues = res;
+      this.currentPage=page;
     });
   }
 }
